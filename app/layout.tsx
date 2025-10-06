@@ -1,31 +1,30 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabaseBrowser'
+import Link from 'next/link';
+import NavLinks from './components/NavLinks'
+import AuthButton from './components/AuthButton'
 
-export default function AuthButton() {
-  const [email, setEmail] = useState<string | null>(null)
+export const metadata = { title: "Void Radio Portal" };
 
-  useEffect(() => {
-    const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? null))
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      setEmail(session?.user?.email ?? null)
-    })
-    return () => { sub.subscription.unsubscribe() }
-  }, [])
-
-  const signOut = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    if (typeof window !== 'undefined') window.location.href = '/login'
-  }
-
-  if (!email) return null
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <span className="text-zinc-600">{email}</span>
-      <button onClick={signOut} className="rounded border px-2 py-1">Sign out</button>
-    </div>
-  )
+    <html lang="en">
+      <body className="min-h-screen bg-zinc-50 text-zinc-900">
+        {/* Desktop top nav */}
+        <header className="sticky top-0 z-10 border-b bg-white">
+          <nav className="mx-auto hidden max-w-5xl items-center justify-between p-4 md:flex">
+            <Link href="/" className="font-semibold">Void Radio</Link>
+            <NavLinks />
+            <AuthButton />
+          </nav>
+          {/* Mobile bottom tabs */}
+          <nav className="fixed inset-x-0 bottom-0 z-20 flex justify-around border-t bg-white p-2 text-xs md:hidden">
+            <NavLinks />
+          </nav>
+        </header>
+        <main className="mx-auto max-w-5xl p-4 pb-16 md:pb-4">{children}</main>
+        <footer className="mx-auto max-w-5xl p-4 text-xs text-zinc-500">
+          Void Radio Portal (MVP)
+        </footer>
+      </body>
+    </html>
+  );
 }
