@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabaseBrowser'
 
 export default function LoginPage() {
@@ -42,9 +43,9 @@ export default function LoginPage() {
       <div className="mx-auto max-w-sm space-y-3">
         <h1 className="text-xl font-semibold">You’re signed in</h1>
         <p className="text-sm">Head to the portal.</p>
-        <a href="/" className="rounded bg-black px-4 py-2 text-white inline-block">
-          Go to dashboard →
-        </a>
+        <Link href="/" className="rounded bg-black px-4 py-2 text-white inline-block">
+  Go to dashboard →
+</Link>
       </div>
     )
   }
