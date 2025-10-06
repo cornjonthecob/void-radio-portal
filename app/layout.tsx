@@ -16,10 +16,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <NavLinks />
             <AuthButton />
           </nav>
-          {/* Mobile bottom tabs */}
-          <nav className="fixed inset-x-0 bottom-0 z-20 flex justify-around border-t bg-white p-2 text-xs md:hidden">
-            <NavLinks />
-          </nav>
         </header>
         <main className="mx-auto max-w-5xl p-4 pb-16 md:pb-4">{children}</main>
         <footer className="mx-auto max-w-5xl p-4 text-xs text-zinc-500">
