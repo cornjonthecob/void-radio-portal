@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import NavLinks from './components/NavLinks'
 import AuthButton from './components/AuthButton'
+import DebugBadge from './components/DebugBadge'
 
 export const metadata = { title: "Void Radio Portal" };
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="mx-auto max-w-5xl p-4 text-xs text-zinc-500">
           Void Radio Portal (MVP)
         </footer>
+        <DebugBadge />
       </body>
     </html>
   );
